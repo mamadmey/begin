@@ -1,0 +1,38 @@
+- name: mon premier play
+  hosts: localhost
+  vars:
+    package_name: httpd
+    package_state: absent
+    user_list:
+      - toto
+      - titi
+
+  tasks:
+    - name: ensure {{package_name}} is {{package_state}}
+      yum:
+        name: "{{package_name}}"
+        state: "{{package_state}}"
+      become: true
+      when: package_name == "git"
+      tags:
+        - install_package
+    
+
+    - name: ensure user toto is present     
+      user:
+        name: "{{item}}"
+      become: true
+      with_items: "{{user_list}}"
+      tags:
+        - create_user
+
+
+    - name: ensure user is absent
+      user:
+        name: "{{item}}" 
+        state: absent
+        remove: true
+      with_items: "{{user_list}}"
+      become: true
+      tags:
+        - delete_user

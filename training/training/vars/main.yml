@@ -1,0 +1,8 @@
+---
+# vars file for training
+user_list:
+  - toto
+  - titi
+  - iron
+  - tutu
+  - man

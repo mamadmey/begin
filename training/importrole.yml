@@ -1,0 +1,14 @@
+- name: my first play
+  hosts: localhost
+
+  tasks: 
+    - import_role:
+        name: training
+
+- name: my second play
+  hosts: localhost
+   
+  tasks:
+    - debug:
+        msg: my name is {{ myname | default('nobody') }}
+        
