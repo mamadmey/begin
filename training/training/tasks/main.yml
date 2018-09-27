@@ -1,4 +1,4 @@
----     
+---
 # tasks file for training
 
 - name: ensure {{package_name}} is {{package_state}}
@@ -11,7 +11,7 @@
     - install_package
 
 
-- name: ensure user toto is present     
+- name: ensure user toto is present
   user:
     name: "{{item}}"
   become: true
@@ -22,10 +22,17 @@
 
 - name: ensure user is absent
   user:
-    name: "{{item}}" 
+    name: "{{item}}"
     state: absent
     remove: true
   with_items: "{{user_list}}"
   become: true
   tags:
     - delete_user
+
+- name: deploy
+  template:
+    src: 'toto.txt.j2'
+    dest: '/home/ip/github/begin/toto.txt'
+  tags:
+    - deploy
